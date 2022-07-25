@@ -1,3 +1,5 @@
+CREATE DATABASE recordLabelDB
+USE  recordLabelDB
 
 CREATE TABLE employee (
   emp_id INT PRIMARY KEY,
