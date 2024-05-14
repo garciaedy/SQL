@@ -1,0 +1,101 @@
+-- Comprehensive Guide to SQL SELECT, ORDER BY, WHERE, and Wildcards
+
+-- Introduction:
+-- SQL SELECT, ORDER BY, WHERE, and Wildcards are fundamental components of querying and manipulating data in a relational database management system (RDBMS). 
+-- Understanding these concepts is crucial for retrieving specific data, filtering records, sorting results, and performing pattern-based searches.
+
+-- SELECT Statement:
+-- The SELECT statement is used to retrieve data from one or more tables in a database. 
+-- It allows you to specify the columns you want to fetch from a table, apply various conditions and functions, and manipulate the retrieved data.
+-- Basic Syntax:
+-- SELECT column1, column2, ...
+-- FROM table_name;
+-- Example:
+-- Retrieve all columns from the customers table
+SELECT * FROM customers;
+
+-- WHERE Clause:
+-- The WHERE clause is used to filter records based on specified conditions. 
+-- It extracts only those records that fulfill a specified condition, allowing you to narrow down the result set to meet specific criteria.
+-- Basic Syntax:
+-- SELECT column1, column2, ...
+-- FROM table_name
+-- WHERE condition;
+-- Example:
+-- Retrieve customers from the city 'Paris'
+SELECT * FROM customers WHERE city = 'Paris';
+
+-- ORDER BY Clause:
+-- The ORDER BY clause is used to sort the result-set in either ascending or descending order based on one or more columns.
+-- By default, it sorts records in ascending order, but you can specify the desired order using the ASC (ascending) or DESC (descending) keywords.
+-- Basic Syntax:
+-- SELECT column1, column2, ...
+-- FROM table_name
+-- ORDER BY column1 [ASC|DESC], column2 [ASC|DESC], ...;
+-- Example:
+-- Retrieve all customers sorted by customerName in ascending order
+SELECT * FROM customers ORDER BY customerName ASC;
+
+-- Wildcards:
+-- Wildcards are special characters used with the SQL LIKE operator to search for a specified pattern in a column.
+-- They allow for pattern-based matching and are particularly useful for filtering data based on partial matches rather than exact matches.
+-- Common Wildcards:
+-- %: Represents zero, one, or multiple characters.
+-- _: Represents a single character.
+-- Example:
+-- Retrieve customers whose names start with 'A'
+SELECT * FROM customers WHERE customerName LIKE 'A%';
+
+-- Retrieve customers whose names start with 'A'
+SELECT * FROM customers WHERE customerName LIKE 'A%';
+
+-- Retrieve customers whose names end with 'Corp'
+SELECT * FROM customers WHERE customerName LIKE '%Corp';
+
+-- Retrieve customers whose names contain 'Tech'
+SELECT * FROM customers WHERE customerName LIKE '%Tech%';
+
+
+-- Deeper Explanation of Wildcards:
+-- Percent (%) Wildcard:
+-- The % wildcard matches zero, one, or multiple characters, allowing for flexible pattern matching at any position within the column value.
+-- Examples:
+-- Retrieve customers whose names start with 'A'
+-- Retrieve customers whose names end with 'Corp'
+-- Retrieve customers whose names contain 'Tech'
+-- Underscore (_) Wildcard:
+-- The _ wildcard matches exactly one character, enabling precise pattern matching with a specific character position within the column value.
+
+-- Retrieve customers whose names start with 'A' and end with 'Corp'
+SELECT * FROM customers WHERE customerName LIKE 'A%Corp';
+
+-- Retrieve customers whose names start with 'A' and have 'n' as the fourth character
+SELECT * FROM customers WHERE customerName LIKE 'A__n%';
+
+-- Retrieve customers whose names contain 'a', 'e', or 'i' as the second character
+SELECT * FROM customers WHERE customerName LIKE '_[aei]%';
+
+-- Retrieve customers whose names contain any character from 'a' to 'e' as the second character
+SELECT * FROM customers WHERE customerName LIKE '_[a-e]%';
+-- Retrieve customers whose names are five characters long
+SELECT * FROM customers WHERE customerName LIKE '_____';
+
+-- Retrieve customers whose names start with 'A' and are followed by exactly three characters
+SELECT * FROM customers WHERE customerName LIKE 'A___';
+
+
+-- Examples:
+-- Retrieve customers whose names are five characters long
+-- Retrieve customers whose names start with 'A' and are followed by exactly three characters
+-- Combining Wildcards:
+-- Wildcards can be combined to create more complex pattern matching criteria, allowing for even greater flexibility in searching and filtering data.
+-- Examples:
+-- Retrieve customers whose names start with 'A' and end with 'Corp'
+-- Retrieve customers whose names start with 'A' and have 'n' as the fourth character
+-- Retrieve customers whose names contain 'a', 'e', or 'i' as the second character
+-- Retrieve customers whose names contain any character from 'a' to 'e' as the second character
+
+-- Conclusion:
+-- Mastering the SQL SELECT statement, along with the WHERE clause, ORDER BY clause, and Wildcards, is essential for effectively querying and retrieving data from databases. 
+-- Understanding these concepts empowers you to perform complex data manipulations, filter records based on specific criteria, and search for patterns within column values.
+-- By applying these techniques, you can efficiently retrieve and analyze data to gain valuable insights and make informed decisions in various business and data analysis scenarios.

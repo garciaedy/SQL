@@ -1,0 +1,353 @@
+-- Example 1: Simple SELECT
+-- Retrieve all columns from the customers table
+SELECT * 
+-- Select all columns
+FROM customers;
+-- From the customers table
+
+-- Example 2: SELECT Specific Columns
+-- Retrieve customer name and city from the customers table
+SELECT customerName, city 
+-- Select customerName and city columns
+FROM customers;
+-- From the customers table
+
+-- Example 3: WHERE Clause
+-- Retrieve customers from the city 'Paris'
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE city = 'Paris';
+-- Where the city is Paris
+
+-- Example 4: WHERE with Multiple Conditions
+-- Retrieve customers from 'Paris' and 'London'
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE city = 'Paris' OR city = 'London';
+-- Where the city is Paris or London
+
+-- Example 5: WHERE with AND Condition
+-- Retrieve customers from 'Paris' who have a credit limit greater than 20000
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE city = 'Paris' AND creditLimit > 20000;
+-- Where the city is Paris and the credit limit is greater than 20000
+
+-- Example 6: ORDER BY Clause
+-- Retrieve all customers sorted by customerName in ascending order
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+ORDER BY customerName ASC;
+-- Order by customerName in ascending order
+
+-- Example 7: ORDER BY Descending
+-- Retrieve all customers sorted by creditLimit in descending order
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+ORDER BY creditLimit DESC;
+-- Order by creditLimit in descending order
+
+-- Example 8: ORDER BY Multiple Columns
+-- Retrieve all customers sorted by city and then by customerName
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+ORDER BY city, customerName;
+-- Order by city and then by customerName
+
+-- Example 9: WHERE with Wildcard %
+-- Retrieve customers whose names start with 'A'
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE 'A%';
+-- Where customerName starts with 'A'
+
+-- Example 10: WHERE with Wildcard %
+-- Retrieve customers whose names have 'Auto' in the middle
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Auto%';
+-- Where customerName contains 'Auto'
+
+-- Example 11: WHERE with Wildcard _
+-- Retrieve customers whose names are five characters long
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '_____';
+-- Where customerName is exactly five characters long
+
+-- Example 12: WHERE with BETWEEN
+-- Retrieve customers with a credit limit between 20000 and 50000
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE creditLimit BETWEEN 20000 AND 50000;
+-- Where creditLimit is between 20000 and 50000
+
+-- Example 13: WHERE with IN
+-- Retrieve customers from 'Paris', 'London', and 'New York'
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE city IN ('Paris', 'London', 'New York');
+-- Where city is either Paris, London, or New York
+
+-- Example 14: WHERE with NOT IN
+-- Retrieve customers not from 'Paris', 'London', and 'New York'
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE city NOT IN ('Paris', 'London', 'New York');
+-- Where city is not Paris, London, or New York
+
+-- Example 15: WHERE with IS NULL
+-- Retrieve customers with no assigned sales representative
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE salesRepEmployeeNumber IS NULL;
+-- Where salesRepEmployeeNumber is NULL
+
+-- Example 16: WHERE with IS NOT NULL
+-- Retrieve customers with assigned sales representatives
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE salesRepEmployeeNumber IS NOT NULL;
+-- Where salesRepEmployeeNumber is not NULL
+
+-- Example 17: SELECT with DISTINCT
+-- Retrieve distinct cities from the customers table
+SELECT DISTINCT city 
+-- Select distinct city
+FROM customers;
+-- From the customers table
+
+-- Example 18: SELECT with COUNT
+-- Count the number of customers
+SELECT COUNT(*) AS totalCustomers
+-- Select count of all customers
+FROM customers;
+-- From the customers table
+
+-- Example 19: SELECT with AVG
+-- Calculate the average credit limit of customers
+SELECT AVG(creditLimit) AS averageCreditLimit
+-- Select average credit limit
+FROM customers;
+-- From the customers table
+
+-- Example 20: SELECT with SUM
+-- Calculate the total credit limit of customers
+SELECT SUM(creditLimit) AS totalCreditLimit
+-- Select sum of credit limits
+FROM customers;
+-- From the customers table
+
+-- Example 21: SELECT with MIN
+-- Find the minimum credit limit of customers
+SELECT MIN(creditLimit) AS minimumCreditLimit
+-- Select minimum credit limit
+FROM customers;
+-- From the customers table
+
+-- Example 22: SELECT with MAX
+-- Find the maximum credit limit of customers
+SELECT MAX(creditLimit) AS maximumCreditLimit
+-- Select maximum credit limit
+FROM customers;
+-- From the customers table
+
+-- Example 23: WHERE with LIKE and ORDER BY
+-- Retrieve customers whose names contain 'Shop', sorted by customerName
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Shop%' 
+-- Where customerName contains 'Shop'
+ORDER BY customerName;
+-- Order by customerName
+
+-- Example 24: WHERE with LIKE and ORDER BY DESC
+-- Retrieve customers whose names contain 'Services', sorted by creditLimit in descending order
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Services%' 
+-- Where customerName contains 'Services'
+ORDER BY creditLimit DESC;
+-- Order by creditLimit in descending order
+
+-- Example 25: WHERE with Multiple Conditions and Wildcards
+-- Retrieve customers from 'New York' or 'Los Angeles' with names starting with 'C'
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE (city = 'New York' OR city = 'Los Angeles') AND customerName LIKE 'C%';
+-- Where city is New York or Los Angeles and customerName starts with 'C'
+
+-- Example 26: WHERE with BETWEEN and ORDER BY
+-- Retrieve customers with a credit limit between 30000 and 60000, sorted by customerName
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE creditLimit BETWEEN 30000 AND 60000 
+-- Where creditLimit is between 30000 and 60000
+ORDER BY customerName;
+-- Order by customerName
+
+-- Example 27: WHERE with NOT IN and ORDER BY DESC
+-- Retrieve customers not from 'San Francisco' and 'Boston', sorted by city in descending order
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE city NOT IN ('San Francisco', 'Boston') 
+-- Where city is not San Francisco or Boston
+ORDER BY city DESC;
+-- Order by city in descending order
+
+-- Example 28: WHERE with Wildcards and COUNT
+-- Count the number of customers with names containing 'Inc'
+SELECT COUNT(*) AS totalIncCustomers 
+-- Select count of customers
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Inc%';
+-- Where customerName contains 'Inc'
+
+-- Example 29: WHERE with Wildcards and AVG
+-- Calculate the average credit limit of customers with names containing 'Corporation'
+SELECT AVG(creditLimit) AS averageCreditCorporation 
+-- Select average credit limit
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Corporation%';
+-- Where customerName contains 'Corporation'
+
+-- Example 30: WHERE with Wildcards and MAX
+-- Find the maximum credit limit of customers with names containing 'LLC'
+SELECT MAX(creditLimit) AS maxCreditLLC 
+-- Select maximum credit limit
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%LLC%';
+-- Where customerName contains 'LLC'
+
+-- Example 31: WHERE with Wildcards and SUM
+-- Calculate the total credit limit of customers with names containing 'Group'
+SELECT SUM(creditLimit) AS totalCreditGroup 
+-- Select total credit limit
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Group%';
+-- Where customerName contains 'Group'
+
+-- Example 32: WHERE with Wildcards and MIN
+-- Find the minimum credit limit of customers with names containing 'International'
+SELECT MIN(creditLimit) AS minCreditInternational 
+-- Select minimum credit limit
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%International%';
+-- Where customerName contains 'International'
+
+-- Example 33: WHERE with LIKE and ORDER BY Multiple Columns
+-- Retrieve customers whose names contain 'Bicycle', sorted by city and then by customerName
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Bicycle%' 
+-- Where customerName contains 'Bicycle'
+ORDER BY city, customerName;
+-- Order by city and then by customerName
+
+-- Example 34: WHERE with Wildcards and Multiple Conditions
+-- Retrieve customers from 'Paris' or 'London' with names containing 'Ltd'
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE (city = 'Paris' OR city = 'London') AND customerName LIKE '%Ltd%';
+-- Where city is Paris or London and customerName contains 'Ltd'
+
+-- Example 35: WHERE with Wildcards and AND Condition
+-- Retrieve customers whose names contain 'Services' and have a credit limit greater than 10000
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Services%' AND creditLimit > 10000;
+-- Where customerName contains 'Services' and credit limit is greater than 10000
+
+-- Example 36: WHERE with Wildcards and OR Condition
+-- Retrieve customers whose names contain 'Inc' or have a credit limit less than 5000
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Inc%' OR creditLimit < 5000;
+-- Where customerName contains 'Inc' or credit limit is less than 5000
+
+-- Example 37: WHERE with Wildcards and NOT LIKE
+-- Retrieve customers whose names do not contain 'Auto'
+SELECT * 
+-- Select all columns
+FROM customers 
+-- From the customers table
+WHERE customerName NOT LIKE '%Auto%';
+-- Where customerName does not contain 'Auto'
+
+-- Example 38: WHERE with Wildcards and COUNT
+-- Count the number of customers with names starting with 'A' and containing 'Bicycle'
+SELECT COUNT(*) AS totalABicycleCustomers 
+-- Select count of customers
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE 'A%Bicycle%';
+-- Where customerName starts with 'A' and contains 'Bicycle'
+
+-- Example 39: WHERE with Wildcards and DISTINCT
+-- Retrieve distinct customer names containing 'Inc'
+SELECT DISTINCT customerName 
+-- Select distinct customerName
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Inc%';
+-- Where customerName contains 'Inc'
+
+-- Example 40: WHERE with Wildcards and AVG
+-- Calculate the average credit limit of customers with names containing 'Enterprise'
+SELECT AVG(creditLimit) AS averageCreditEnterprise 
+-- Select average credit limit
+FROM customers 
+-- From the customers table
+WHERE customerName LIKE '%Enterprise%';
+-- Where customerName contains 'Enterprise'
