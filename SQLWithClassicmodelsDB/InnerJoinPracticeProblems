@@ -1,0 +1,244 @@
+-- Problem 1: List all orders with customer information
+SELECT orders.orderNumber, customers.customerName, orders.orderDate
+-- Select order number, customer name, and order date
+FROM orders
+INNER JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Join orders with customers where customer numbers match
+
+-- Problem 2: List all order details with product information
+SELECT orderdetails.orderNumber, products.productName, orderdetails.quantityOrdered
+-- Select order number, product name, and quantity ordered
+FROM orderdetails
+INNER JOIN products ON orderdetails.productCode = products.productCode;
+-- Join order details with products where product codes match
+
+-- Problem 3: List all employees and their offices
+SELECT employees.firstName, employees.lastName, offices.city, offices.country
+-- Select employee first name, last name, office city, and country
+FROM employees
+INNER JOIN offices ON employees.officeCode = offices.officeCode;
+-- Join employees with offices where office codes match
+
+-- Problem 4: List all payments made by customers
+SELECT payments.customerNumber, customers.customerName, payments.amount, payments.paymentDate
+-- Select customer number, customer name, payment amount, and payment date
+FROM payments
+INNER JOIN customers ON payments.customerNumber = customers.customerNumber;
+-- Join payments with customers where customer numbers match
+
+-- Problem 5: List all products in each product line
+SELECT products.productName, productlines.productLine
+-- Select product name and product line
+FROM products
+INNER JOIN productlines ON products.productLine = productlines.productLine;
+-- Join products with product lines where product lines match
+
+-- Problem 6: List all employees and their managers
+SELECT e1.firstName AS EmployeeFirstName, e1.lastName AS EmployeeLastName, 
+       e2.firstName AS ManagerFirstName, e2.lastName AS ManagerLastName
+-- Select employee first name, last name, manager first name, and last name
+FROM employees e1
+INNER JOIN employees e2 ON e1.reportsTo = e2.employeeNumber;
+-- Join employees table with itself where employee reports to another employee
+
+-- Problem 7: List all orders and the customers who placed them
+SELECT orders.orderNumber, customers.customerName
+-- Select order number and customer name
+FROM orders
+INNER JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Join orders with customers where customer numbers match
+
+-- Problem 8: List all offices and their employees
+SELECT offices.city, employees.firstName, employees.lastName
+-- Select office city, employee first name, and last name
+FROM offices
+INNER JOIN employees ON offices.officeCode = employees.officeCode;
+-- Join offices with employees where office codes match
+
+-- Problem 9: List all products and their vendors
+SELECT products.productName, products.productVendor
+-- Select product name and product vendor
+FROM products
+INNER JOIN vendors ON products.productVendor = vendors.vendorName;
+-- Join products with vendors where product vendor names match
+
+-- Problem 10: List all payments and the orders they are associated with
+SELECT payments.paymentDate, payments.amount, orders.orderNumber
+-- Select payment date, amount, and order number
+FROM payments
+INNER JOIN orders ON payments.customerNumber = orders.customerNumber;
+-- Join payments with orders where customer numbers match
+
+-- Problem 11: List all customers who have placed orders
+SELECT customers.customerName, orders.orderNumber
+-- Select customer name and order number
+FROM customers
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber;
+-- Join customers with orders where customer numbers match
+
+-- Problem 12: List all orders and the order details
+SELECT orders.orderNumber, orderdetails.productCode, orderdetails.quantityOrdered
+-- Select order number, product code, and quantity ordered
+FROM orders
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber;
+-- Join orders with order details where order numbers match
+
+-- Problem 13: List all products and the order details for each product
+SELECT products.productName, orderdetails.orderNumber, orderdetails.quantityOrdered
+-- Select product name, order number, and quantity ordered
+FROM products
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode;
+-- Join products with order details where product codes match
+
+-- Problem 14: List all employees and their job titles
+SELECT employees.firstName, employees.lastName, employees.jobTitle
+-- Select employee first name, last name, and job title
+FROM employees
+INNER JOIN jobtitles ON employees.jobTitle = jobtitles.title;
+-- Join employees with job titles where job titles match
+
+-- Problem 15: List all customers and their credit limits
+SELECT customers.customerName, customers.creditLimit
+-- Select customer name and credit limit
+FROM customers
+INNER JOIN creditlimits ON customers.customerNumber = creditlimits.customerNumber;
+-- Join customers with credit limits where customer numbers match
+
+-- Problem 16: List all orders and the products ordered
+SELECT orders.orderNumber, products.productName
+-- Select order number and product name
+FROM orders
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Join orders with order details where order numbers match
+INNER JOIN products ON orderdetails.productCode = products.productCode;
+-- Join order details with products where product codes match
+
+-- Problem 17: List all customers and their sales representatives
+SELECT customers.customerName, employees.firstName, employees.lastName
+-- Select customer name, sales representative first name, and last name
+FROM customers
+INNER JOIN employees ON customers.salesRepEmployeeNumber = employees.employeeNumber;
+-- Join customers with employees where sales representative employee numbers match
+
+-- Problem 18: List all products and their product lines
+SELECT products.productName, productlines.textDescription
+-- Select product name and product line description
+FROM products
+INNER JOIN productlines ON products.productLine = productlines.productLine;
+-- Join products with product lines where product lines match
+
+-- Problem 19: List all orders and the total amount for each order
+SELECT orders.orderNumber, SUM(orderdetails.quantityOrdered * orderdetails.priceEach) AS totalAmount
+-- Select order number and calculate total amount for each order
+FROM orders
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Join orders with order details where order numbers match
+GROUP BY orders.orderNumber;
+-- Group results by order number to calculate total amount for each order
+
+-- Problem 20: List all payments and the customers who made them
+SELECT payments.paymentDate, payments.amount, customers.customerName
+-- Select payment date, amount, and customer name
+FROM payments
+INNER JOIN customers ON payments.customerNumber = customers.customerNumber;
+-- Join payments with customers where customer numbers match
+
+-- Problem 21: List all customers and the number of orders they have placed
+SELECT customers.customerName, COUNT(orders.orderNumber) AS orderCount
+-- Select customer name and count the number of orders placed
+FROM customers
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Join customers with orders where customer numbers match
+GROUP BY customers.customerName;
+-- Group results by customer name to count the number of orders for each customer
+
+-- Problem 22: List all products and the total quantity ordered for each product
+SELECT products.productName, SUM(orderdetails.quantityOrdered) AS totalQuantity
+-- Select product name and calculate total quantity ordered for each product
+FROM products
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Join products with order details where product codes match
+GROUP BY products.productName;
+-- Group results by product name to calculate total quantity ordered for each product
+
+-- Problem 23: List all employees and the number of customers they manage
+SELECT employees.firstName, employees.lastName, COUNT(customers.customerNumber) AS customerCount
+-- Select employee first name, last name, and count the number of customers managed
+FROM employees
+INNER JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber
+-- Join employees with customers where employee numbers match sales representative employee numbers
+GROUP BY employees.firstName, employees.lastName;
+-- Group results by employee first name and last name to count the number of customers managed by each employee
+
+-- Problem 24: List all orders and the average quantity ordered for each order
+SELECT orders.orderNumber, AVG(orderdetails.quantityOrdered) AS avgQuantity
+-- Select order number and calculate average quantity ordered for each order
+FROM orders
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Join orders with order details where order numbers match
+GROUP BY orders.orderNumber;
+-- Group results by order number to calculate average quantity ordered for each order
+
+-- Problem 25: List all product lines and the number of products in each line
+SELECT productlines.productLine, COUNT(products.productCode) AS productCount
+-- Select product line and count the number of products in each line
+FROM productlines
+INNER JOIN products ON productlines.productLine = products.productLine
+-- Join product lines with products where product lines match
+GROUP BY productlines.productLine;
+-- Group results by product line to count the number of products in each line
+
+-- Problem 26: List all customers and the total amount they have spent
+SELECT customers.customerName, SUM(orderdetails.quantityOrdered * orderdetails.priceEach) AS totalSpent
+-- Select customer name and calculate total amount spent by each customer
+FROM customers
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Join customers with orders where customer numbers match
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Join orders with order details where order numbers match
+GROUP BY customers.customerName;
+-- Group results by customer name to calculate total amount spent by each customer
+
+-- Problem 27: List all employees and the number of orders they have handled
+SELECT employees.firstName, employees.lastName, COUNT(orders.orderNumber) AS orderCount
+-- Select employee first name, last name, and count the number of orders handled
+FROM employees
+INNER JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber
+-- Join employees with customers where employee numbers match sales representative employee numbers
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Join customers with orders where customer numbers match
+GROUP BY employees.firstName, employees.lastName;
+-- Group results by employee first name and last name to count the number of orders handled by each employee
+
+-- Problem 28: List all products and their total sales
+SELECT products.productName, SUM(orderdetails.quantityOrdered * orderdetails.priceEach) AS totalSales
+-- Select product name and calculate total sales for each product
+FROM products
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Join products with order details where product codes match
+GROUP BY products.productName;
+-- Group results by product name to calculate total sales for each product
+
+-- Problem 29: List all customers and their average order value
+SELECT customers.customerName, AVG(orderdetails.quantityOrdered * orderdetails.priceEach) AS avgOrderValue
+-- Select customer name and calculate average order value for each customer
+FROM customers
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Join customers with orders where customer numbers match
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Join orders with order details where order numbers match
+GROUP BY customers.customerName;
+-- Group results by customer name to calculate average order value for each customer
+
+-- Problem 30: List all employees and the average amount of orders they have handled
+SELECT employees.firstName, employees.lastName, AVG(orderdetails.quantityOrdered * orderdetails.priceEach) AS avgOrderAmount
+-- Select employee first name, last name, and calculate average amount of orders handled by each employee
+FROM employees
+INNER JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber
+-- Join employees with customers where employee numbers match sales representative employee numbers
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Join customers with orders where customer numbers match
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Join orders with order details where order numbers match
+GROUP BY employees.firstName, employees.lastName;
+-- Group results by employee first name and last name to calculate average order amount handled by each employee

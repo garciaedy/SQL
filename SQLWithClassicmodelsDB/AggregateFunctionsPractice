@@ -1,0 +1,477 @@
+-- Example 1: SUM
+-- Calculate the total quantity ordered for each product
+SELECT productCode, SUM(quantityOrdered) AS totalQuantity
+-- Select the product code and the total quantity ordered
+FROM orderdetails
+-- From the orderdetails table
+GROUP BY productCode;
+-- Group by product code
+
+-- Example 2: AVG
+-- Calculate the average payment amount for each customer
+SELECT customerNumber, AVG(amount) AS averagePayment
+-- Select the customer number and the average payment amount
+FROM payments
+-- From the payments table
+GROUP BY customerNumber;
+-- Group by customer number
+
+-- Example 3: COUNT
+-- Count the number of orders for each customer
+SELECT customerNumber, COUNT(orderNumber) AS numberOfOrders
+-- Select the customer number and the number of orders
+FROM orders
+-- From the orders table
+GROUP BY customerNumber;
+-- Group by customer number
+
+-- Example 4: MAX
+-- Find the highest payment amount for each customer
+SELECT customerNumber, MAX(amount) AS maxPayment
+-- Select the customer number and the highest payment amount
+FROM payments
+-- From the payments table
+GROUP BY customerNumber;
+-- Group by customer number
+
+-- Example 5: MIN
+-- Find the smallest payment amount for each customer
+SELECT customerNumber, MIN(amount) AS minPayment
+-- Select the customer number and the smallest payment amount
+FROM payments
+-- From the payments table
+GROUP BY customerNumber;
+-- Group by customer number
+
+-- Example 6: SUM with WHERE
+-- Calculate the total quantity ordered for each product in 2003
+SELECT productCode, SUM(quantityOrdered) AS totalQuantity
+-- Select the product code and the total quantity ordered
+FROM orderdetails
+-- From the orderdetails table
+JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Join with the orders table on orderNumber
+WHERE orderDate BETWEEN '2003-01-01' AND '2003-12-31'
+-- Where the order date is in 2003
+GROUP BY productCode;
+-- Group by product code
+
+-- Example 7: AVG with WHERE
+-- Calculate the average payment amount for each customer in 2004
+SELECT customerNumber, AVG(amount) AS averagePayment
+-- Select the customer number and the average payment amount
+FROM payments
+-- From the payments table
+WHERE paymentDate BETWEEN '2004-01-01' AND '2004-12-31'
+-- Where the payment date is in 2004
+GROUP BY customerNumber;
+-- Group by customer number
+
+-- Example 8: COUNT with WHERE
+-- Count the number of orders placed in 2005
+SELECT COUNT(orderNumber) AS numberOfOrders
+-- Select the number of orders
+FROM orders
+-- From the orders table
+WHERE orderDate BETWEEN '2005-01-01' AND '2005-12-31';
+-- Where the order date is in 2005
+
+-- Example 9: MAX with WHERE
+-- Find the highest payment amount made in 2006
+SELECT MAX(amount) AS maxPayment
+-- Select the highest payment amount
+FROM payments
+-- From the payments table
+WHERE paymentDate BETWEEN '2006-01-01' AND '2006-12-31';
+-- Where the payment date is in 2006
+
+-- Example 10: MIN with WHERE
+-- Find the smallest payment amount made in 2007
+SELECT MIN(amount) AS minPayment
+-- Select the smallest payment amount
+FROM payments
+-- From the payments table
+WHERE paymentDate BETWEEN '2007-01-01' AND '2007-12-31';
+-- Where the payment date is in 2007
+
+-- Example 11: SUM with GROUP BY and HAVING
+-- Calculate the total quantity ordered for each product, but only include products with a total quantity ordered greater than 100
+SELECT productCode, SUM(quantityOrdered) AS totalQuantity
+-- Select the product code and the total quantity ordered
+FROM orderdetails
+-- From the orderdetails table
+GROUP BY productCode
+-- Group by product code
+HAVING SUM(quantityOrdered) > 100;
+-- Having a total quantity ordered greater than 100
+
+-- Example 12: AVG with GROUP BY and HAVING
+-- Calculate the average payment amount for each customer, but only include customers with an average payment amount greater than 500
+SELECT customerNumber, AVG(amount) AS averagePayment
+-- Select the customer number and the average payment amount
+FROM payments
+-- From the payments table
+GROUP BY customerNumber
+-- Group by customer number
+HAVING AVG(amount) > 500;
+-- Having an average payment amount greater than 500
+
+-- Example 13: COUNT with GROUP BY and HAVING
+-- Count the number of orders for each customer, but only include customers with more than 5 orders
+SELECT customerNumber, COUNT(orderNumber) AS numberOfOrders
+-- Select the customer number and the number of orders
+FROM orders
+-- From the orders table
+GROUP BY customerNumber
+-- Group by customer number
+HAVING COUNT(orderNumber) > 5;
+-- Having more than 5 orders
+
+-- Example 14: MAX with GROUP BY and HAVING
+-- Find the highest payment amount for each customer, but only include customers with a highest payment amount greater than 1000
+SELECT customerNumber, MAX(amount) AS maxPayment
+-- Select the customer number and the highest payment amount
+FROM payments
+-- From the payments table
+GROUP BY customerNumber
+-- Group by customer number
+HAVING MAX(amount) > 1000;
+-- Having a highest payment amount greater than 1000
+
+-- Example 15: MIN with GROUP BY and HAVING
+-- Find the smallest payment amount for each customer, but only include customers with a smallest payment amount less than 100
+SELECT customerNumber, MIN(amount) AS minPayment
+-- Select the customer number and the smallest payment amount
+FROM payments
+-- From the payments table
+GROUP BY customerNumber
+-- Group by customer number
+HAVING MIN(amount) < 100;
+-- Having a smallest payment amount less than 100
+
+-- Example 16: SUM with JOIN
+-- Calculate the total quantity ordered for each product along with the product name
+SELECT products.productName, SUM(orderdetails.quantityOrdered) AS totalQuantity
+-- Select the product name and the total quantity ordered
+FROM products
+-- From the products table
+JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Join with the orderdetails table on productCode
+GROUP BY products.productName;
+-- Group by product name
+
+-- Example 17: AVG with JOIN
+-- Calculate the average payment amount for each customer along with the customer name
+SELECT customers.customerName, AVG(payments.amount) AS averagePayment
+-- Select the customer name and the average payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+GROUP BY customers.customerName;
+-- Group by customer name
+
+-- Example 18: COUNT with JOIN
+-- Count the number of orders for each customer along with the customer name
+SELECT customers.customerName, COUNT(orders.orderNumber) AS numberOfOrders
+-- Select the customer name and the number of orders
+FROM customers
+-- From the customers table
+JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Join with the orders table on customerNumber
+GROUP BY customers.customerName;
+-- Group by customer name
+
+-- Example 19: MAX with JOIN
+-- Find the highest payment amount for each customer along with the customer name
+SELECT customers.customerName, MAX(payments.amount) AS maxPayment
+-- Select the customer name and the highest payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+GROUP BY customers.customerName;
+-- Group by customer name
+
+-- Example 20: MIN with JOIN
+-- Find the smallest payment amount for each customer along with the customer name
+SELECT customers.customerName, MIN(payments.amount) AS minPayment
+-- Select the customer name and the smallest payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+GROUP BY customers.customerName;
+-- Group by customer name
+
+-- Example 21: SUM with JOIN and WHERE
+-- Calculate the total quantity ordered for each product in 2003 along with the product name
+SELECT products.productName, SUM(orderdetails.quantityOrdered) AS totalQuantity
+-- Select the product name and the total quantity ordered
+FROM products
+-- From the products table
+JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Join with the orderdetails table on productCode
+JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Join with the orders table on orderNumber
+WHERE orders.orderDate BETWEEN '2003-01-01' AND '2003-12-31'
+-- Where the order date is in 2003
+GROUP BY products.productName;
+-- Group by product name
+
+-- Example 22: AVG with JOIN and WHERE
+-- Calculate the average payment amount for each customer in 2004 along with the customer name
+SELECT customers.customerName, AVG(payments.amount) AS averagePayment
+-- Select the customer name and the average payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+WHERE payments.paymentDate BETWEEN '2004-01-01' AND '2004-12-31'
+-- Where the payment date is in 2004
+GROUP BY customers.customerName;
+-- Group by customer name
+
+-- Example 23: COUNT with JOIN and WHERE
+-- Count the number of orders placed in 2005 along with the customer name
+SELECT customers.customerName, COUNT(orders.orderNumber) AS numberOfOrders
+-- Select the customer name and the number of orders
+FROM customers
+-- From the customers table
+JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Join with the orders table on customerNumber
+WHERE orders.orderDate BETWEEN '2005-01-01' AND '2005-12-31'
+-- Where the order date is in 2005
+GROUP BY customers.customerName;
+-- Group by customer name
+
+-- Example 24: MAX with JOIN and WHERE
+-- Find the highest payment amount made in 2006 along with the customer name
+SELECT customers.customerName, MAX(payments.amount) AS maxPayment
+-- Select the customer name and the highest payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+WHERE payments.paymentDate BETWEEN '2006-01-01' AND '2006-12-31'
+-- Where the payment date is in 2006
+GROUP BY customers.customerName;
+-- Group by customer name
+
+-- Example 25: MIN with JOIN and WHERE
+-- Find the smallest payment amount made in 2007 along with the customer name
+SELECT customers.customerName, MIN(payments.amount) AS minPayment
+-- Select the customer name and the smallest payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+WHERE payments.paymentDate BETWEEN '2007-01-01' AND '2007-12-31'
+-- Where the payment date is in 2007
+GROUP BY customers.customerName;
+-- Group by customer name
+
+-- Example 26: SUM with HAVING and WILDCARD
+-- Calculate the total quantity ordered for each product with 'S%' in the product code, but only include products with a total quantity ordered greater than 100
+SELECT productCode, SUM(quantityOrdered) AS totalQuantity
+-- Select the product code and the total quantity ordered
+FROM orderdetails
+-- From the orderdetails table
+WHERE productCode LIKE 'S%'
+-- Where the product code starts with 'S'
+GROUP BY productCode
+-- Group by product code
+HAVING SUM(quantityOrdered) > 100;
+-- Having a total quantity ordered greater than 100
+
+-- Example 27: AVG with HAVING and WILDCARD
+-- Calculate the average payment amount for each customer with 'A%' in the customer name, but only include customers with an average payment amount greater than 500
+SELECT customerNumber, AVG(amount) AS averagePayment
+-- Select the customer number and the average payment amount
+FROM payments
+-- From the payments table
+JOIN customers ON payments.customerNumber = customers.customerNumber
+-- Join with the customers table on customerNumber
+WHERE customers.customerName LIKE 'A%'
+-- Where the customer name starts with 'A'
+GROUP BY customerNumber
+-- Group by customer number
+HAVING AVG(amount) > 500;
+-- Having an average payment amount greater than 500
+
+-- Example 28: COUNT with HAVING and WILDCARD
+-- Count the number of orders for each customer with 'C%' in the customer name, but only include customers with more than 5 orders
+SELECT customerNumber, COUNT(orderNumber) AS numberOfOrders
+-- Select the customer number and the number of orders
+FROM orders
+-- From the orders table
+JOIN customers ON orders.customerNumber = customers.customerNumber
+-- Join with the customers table on customerNumber
+WHERE customers.customerName LIKE 'C%'
+-- Where the customer name starts with 'C'
+GROUP BY customerNumber
+-- Group by customer number
+HAVING COUNT(orderNumber) > 5;
+-- Having more than 5 orders
+
+-- Example 29: MAX with HAVING and WILDCARD
+-- Find the highest payment amount for each customer with 'B%' in the customer name, but only include customers with a highest payment amount greater than 1000
+SELECT customerNumber, MAX(amount) AS maxPayment
+-- Select the customer number and the highest payment amount
+FROM payments
+-- From the payments table
+JOIN customers ON payments.customerNumber = customers.customerNumber
+-- Join with the customers table on customerNumber
+WHERE customers.customerName LIKE 'B%'
+-- Where the customer name starts with 'B'
+GROUP BY customerNumber
+-- Group by customer number
+HAVING MAX(amount) > 1000;
+-- Having a highest payment amount greater than 1000
+
+-- Example 30: MIN with HAVING and WILDCARD
+-- Find the smallest payment amount for each customer with 'D%' in the customer name, but only include customers with a smallest payment amount less than 100
+SELECT customerNumber, MIN(amount) AS minPayment
+-- Select the customer number and the smallest payment amount
+FROM payments
+-- From the payments table
+JOIN customers ON payments.customerNumber = customers.customerNumber
+-- Join with the customers table on customerNumber
+WHERE customers.customerName LIKE 'D%'
+-- Where the customer name starts with 'D'
+GROUP BY customerNumber
+-- Group by customer number
+HAVING MIN(amount) < 100;
+-- Having a smallest payment amount less than 100
+
+-- Example 31: SUM with JOIN and HAVING
+-- Calculate the total quantity ordered for each product in 2003 along with the product name, but only include products with a total quantity ordered greater than 100
+SELECT products.productName, SUM(orderdetails.quantityOrdered) AS totalQuantity
+-- Select the product name and the total quantity ordered
+FROM products
+-- From the products table
+JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Join with the orderdetails table on productCode
+JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Join with the orders table on orderNumber
+WHERE orders.orderDate BETWEEN '2003-01-01' AND '2003-12-31'
+-- Where the order date is in 2003
+GROUP BY products.productName
+-- Group by product name
+HAVING SUM(orderdetails.quantityOrdered) > 100;
+-- Having a total quantity ordered greater than 100
+
+-- Example 32: AVG with JOIN and HAVING
+-- Calculate the average payment amount for each customer in 2004 along with the customer name, but only include customers with an average payment amount greater than 500
+SELECT customers.customerName, AVG(payments.amount) AS averagePayment
+-- Select the customer name and the average payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+WHERE payments.paymentDate BETWEEN '2004-01-01' AND '2004-12-31'
+-- Where the payment date is in 2004
+GROUP BY customers.customerName
+-- Group by customer name
+HAVING AVG(payments.amount) > 500;
+-- Having an average payment amount greater than 500
+
+-- Example 33: COUNT with JOIN and HAVING
+-- Count the number of orders placed in 2005 along with the customer name, but only include customers with more than 5 orders
+SELECT customers.customerName, COUNT(orders.orderNumber) AS numberOfOrders
+-- Select the customer name and the number of orders
+FROM customers
+-- From the customers table
+JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Join with the orders table on customerNumber
+WHERE orders.orderDate BETWEEN '2005-01-01' AND '2005-12-31'
+-- Where the order date is in 2005
+GROUP BY customers.customerName
+-- Group by customer name
+HAVING COUNT(orders.orderNumber) > 5;
+-- Having more than 5 orders
+
+-- Example 34: MAX with JOIN and HAVING
+-- Find the highest payment amount made in 2006 along with the customer name, but only include customers with a highest payment amount greater than 1000
+SELECT customers.customerName, MAX(payments.amount) AS maxPayment
+-- Select the customer name and the highest payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+WHERE payments.paymentDate BETWEEN '2006-01-01' AND '2006-12-31'
+-- Where the payment date is in 2006
+GROUP BY customers.customerName
+-- Group by customer name
+HAVING MAX(payments.amount) > 1000;
+-- Having a highest payment amount greater than 1000
+
+-- Example 35: MIN with JOIN and HAVING
+-- Find the smallest payment amount made in 2007 along with the customer name, but only include customers with a smallest payment amount less than 100
+SELECT customers.customerName, MIN(payments.amount) AS minPayment
+-- Select the customer name and the smallest payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+WHERE payments.paymentDate BETWEEN '2007-01-01' AND '2007-12-31'
+-- Where the payment date is in 2007
+GROUP BY customers.customerName
+-- Group by customer name
+HAVING MIN(payments.amount) < 100;
+-- Having a smallest payment amount less than 100
+
+-- Example 36: SUM with GROUP BY and JOIN
+-- Calculate the total quantity ordered for each product along with the product name and product line
+SELECT products.productName, products.productLine, SUM(orderdetails.quantityOrdered) AS totalQuantity
+-- Select the product name, product line, and the total quantity ordered
+FROM products
+-- From the products table
+JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Join with the orderdetails table on productCode
+GROUP BY products.productName, products.productLine;
+-- Group by product name and product line
+
+-- Example 37: AVG with GROUP BY and JOIN
+-- Calculate the average payment amount for each customer along with the customer name and city
+SELECT customers.customerName, customers.city, AVG(payments.amount) AS averagePayment
+-- Select the customer name, city, and the average payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+GROUP BY customers.customerName, customers.city;
+-- Group by customer name and city
+
+-- Example 38: COUNT with GROUP BY and JOIN
+-- Count the number of orders for each customer along with the customer name and city
+SELECT customers.customerName, customers.city, COUNT(orders.orderNumber) AS numberOfOrders
+-- Select the customer name, city, and the number of orders
+FROM customers
+-- From the customers table
+JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Join with the orders table on customerNumber
+GROUP BY customers.customerName, customers.city;
+-- Group by customer name and city
+
+-- Example 39: MAX with GROUP BY and JOIN
+-- Find the highest payment amount for each customer along with the customer name and city
+SELECT customers.customerName, customers.city, MAX(payments.amount) AS maxPayment
+-- Select the customer name, city, and the highest payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+GROUP BY customers.customerName, customers.city;
+-- Group by customer name and city
+
+-- Example 40: MIN with GROUP BY and JOIN
+-- Find the smallest payment amount for each customer along with the customer name and city
+SELECT customers.customerName, customers.city, MIN(payments.amount) AS minPayment
+-- Select the customer name, city, and the smallest payment amount
+FROM customers
+-- From the customers table
+JOIN payments ON customers.customerNumber = payments.customerNumber
+-- Join with the payments table on customerNumber
+GROUP BY customers.customerName, customers.city;
+-- Group by customer name and city

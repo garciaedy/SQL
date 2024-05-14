@@ -1,0 +1,120 @@
+-- Example 1: Select all columns from the customers table
+SELECT * FROM customers;
+
+-- Example 2: Select all columns from the employees table
+SELECT * FROM employees;
+
+-- Example 3: Select all columns from the offices table
+SELECT * FROM offices;
+
+-- Example 4: Select all columns from the orders table
+SELECT * FROM orders;
+
+-- Example 5: Select all columns from the orderdetails table
+SELECT * FROM orderdetails;
+
+-- Example 6: Select all columns from the payments table
+SELECT * FROM payments;
+
+-- Example 7: Select all columns from the products table
+SELECT * FROM products;
+
+-- Example 8: Select all columns from the productlines table
+SELECT * FROM productlines;
+
+-- Example 9: Select all columns from the customers table where country is 'USA'
+SELECT * FROM customers WHERE country = 'USA';
+
+-- Example 10: Select all columns from the employees table where jobTitle is 'Sales Rep'
+SELECT * FROM employees WHERE jobTitle = 'Sales Rep';
+
+-- Problem 1: Select all columns from the customers table
+SELECT * FROM customers;
+
+-- Problem 2: Select all columns from the employees table
+SELECT * FROM employees;
+
+-- Problem 3: Select all columns from the offices table
+SELECT * FROM offices;
+
+-- Problem 4: Select all columns from the orders table
+SELECT * FROM orders;
+
+-- Problem 5: Select all columns from the orderdetails table
+SELECT * FROM orderdetails;
+
+-- Problem 6: Select all columns from the payments table
+SELECT * FROM payments;
+
+-- Problem 7: Select all columns from the products table
+SELECT * FROM products;
+
+-- Problem 8: Select all columns from the productlines table
+SELECT * FROM productlines;
+
+-- Problem 9: Select all columns from the customers table where country is 'Germany'
+SELECT * FROM customers WHERE country = 'Germany';
+
+-- Problem 10: Select all columns from the employees table where jobTitle is 'Manager'
+SELECT * FROM employees WHERE jobTitle = 'Manager';
+
+-- Problem 11: Select all columns from the offices table where city is 'Paris'
+SELECT * FROM offices WHERE city = 'Paris';
+
+-- Problem 12: Select all columns from the orders table where status is 'Shipped'
+SELECT * FROM orders WHERE status = 'Shipped';
+
+-- Problem 13: Select all columns from the orderdetails table where quantityOrdered is greater than 30
+SELECT * FROM orderdetails WHERE quantityOrdered > 30;
+
+-- Problem 14: Select all columns from the payments table where amount is greater than 10000
+SELECT * FROM payments WHERE amount > 10000;
+
+-- Problem 15: Select all columns from the products table where quantityInStock is less than 100
+SELECT * FROM products WHERE quantityInStock < 100;
+
+-- Problem 16: Select all columns from the productlines table where textDescription is not null
+SELECT * FROM productlines WHERE textDescription IS NOT NULL;
+
+-- Problem 17: Select all columns from the customers table where contactLastName is 'Schmitt'
+SELECT * FROM customers WHERE contactLastName = 'Schmitt';
+
+-- Problem 18: Select all columns from the employees table where reportsTo is null
+SELECT * FROM employees WHERE reportsTo IS NULL;
+
+-- Problem 19: Select all columns from the offices table where country is 'USA'
+SELECT * FROM offices WHERE country = 'USA';
+
+-- Problem 20: Select all columns from the orders table where orderDate is '2023-01-15'
+SELECT * FROM orders WHERE orderDate = '2023-01-15';
+
+-- Problem 21: Select all columns from the orderdetails table where orderLineNumber is 2
+SELECT * FROM orderdetails WHERE orderLineNumber = 2;
+
+-- Problem 22: Select all columns from the payments table where paymentDate is '2024-05-13'
+SELECT * FROM payments WHERE paymentDate = '2024-05-13';
+
+-- Problem 23: Select all columns from the products table where productScale is '1:10'
+SELECT * FROM products WHERE productScale = '1:10';
+
+-- Problem 24: Select all columns from the productlines table where htmlDescription is not null
+SELECT * FROM productlines WHERE htmlDescription IS NOT NULL;
+
+-- Problem 25: Select all columns from the customers table where creditLimit is greater than 50000
+SELECT * FROM customers WHERE creditLimit > 50000;
+
+-- Problem 26: Select all columns from the employees table where extension is 'x1234'
+SELECT * FROM employees WHERE extension = 'x1234';
+
+-- Problem 27: Select all columns from the offices table where territory is 'NA'
+SELECT * FROM offices WHERE territory = 'NA';
+
+-- Problem 28: Select all columns from the orders table where shippedDate is not null
+SELECT * FROM orders WHERE shippedDate IS NOT NULL;
+
+-- Problem 29: Select all columns from the orderdetails table where priceEach is greater than 50
+SELECT * FROM orderdetails WHERE priceEach > 50;
+
+-- Problem 30: Select all columns from the payments table where checkNumber is 'HQ336336'
+SELECT * FROM payments WHERE checkNumber = 'HQ336336';
+

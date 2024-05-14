@@ -1,0 +1,29 @@
+-- Example 1: Select all columns from the customers table
+SELECT * FROM customers;
+
+-- Example 2: Select all columns from the employees table
+SELECT * FROM employees;
+
+-- Example 3: Select all columns from the offices table
+SELECT * FROM offices;
+
+-- Example 4: Select all columns from the orders table
+SELECT * FROM orders;
+
+-- Example 5: Select all columns from the orderdetails table
+SELECT * FROM orderdetails;
+
+-- Example 6: Select all columns from the payments table
+SELECT * FROM payments;
+
+-- Example 7: Select all columns from the products table
+SELECT * FROM products;
+
+-- Example 8: Select all columns from the productlines table
+SELECT * FROM productlines;
+
+-- Example 9: Select all columns from the customers table where country is 'USA'
+SELECT * FROM customers WHERE country = 'USA';
+
+-- Example 10: Select all columns from the employees table where jobTitle is 'Sales Rep'
+SELECT * FROM employees WHERE jobTitle = 'Sales Rep';

@@ -1,0 +1,568 @@
+-- SQL Mixed Joins Guide
+
+-- Introduction to Mixed Joins:
+-- Mixed Joins combine different types of joins (INNER, LEFT, RIGHT, FULL) in a single query to retrieve data from multiple tables based on various relationships. 
+-- Mixed joins are useful when you need to include multiple relationships between tables in a single query, ensuring comprehensive data retrieval.
+
+-- When to Use Mixed Joins:
+
+-- 1. Complex Queries:
+-- Use mixed joins when a query requires multiple types of relationships between tables to retrieve the necessary data. 
+-- This is common in scenarios where the data model is complex, and different relationships need to be considered.
+
+-- 2. Comprehensive Data Analysis:
+-- When you need to ensure that all relevant data from different tables is included, regardless of the type of relationship. 
+-- Mixed joins allow you to combine various types of joins to capture all necessary data for comprehensive analysis.
+
+-- 3. Data Integrity:
+-- Mixed joins help maintain data integrity by combining various relationships and ensuring that no important data is excluded. 
+-- This is important in scenarios where data from multiple tables must be combined accurately.
+
+-- Additional Information:
+
+-- 1. Syntax:
+-- Mixed joins involve combining different join types within the same query. 
+-- Syntax varies based on the database management system being used, but typically involves specifying the join type (INNER, LEFT, RIGHT, FULL) for each join condition.
+
+-- 2. Order of Joins:
+-- The order in which joins are specified in a mixed join query can impact the result set. 
+-- It's important to consider the order carefully to ensure the desired data is retrieved and the query performs efficiently.
+
+-- 3. Use of Aliases:
+-- When working with multiple joins in a single query, it's helpful to use table aliases to improve readability and avoid ambiguity in column references.
+
+-- Example:
+-- Suppose we have three tables: customers, orders, and products.
+-- We want to retrieve a list of customers along with their orders (if any), and the products included in each order.
+
+-- SQL Query:
+SELECT customers.customer_id, customers.customer_name, orders.order_id, products.product_name
+FROM customers
+LEFT JOIN orders ON customers.customer_id = orders.customer_id
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+INNER JOIN products ON order_details.product_id = products.product_id;
+
+-- Description:
+-- In this example, we perform a mixed join involving LEFT JOIN, INNER JOIN, and another INNER JOIN.
+-- We start by joining the customers table with the orders table using a LEFT JOIN to include all customers, regardless of whether they have placed any orders.
+-- Next, we use two INNER JOINs to join the orders table with the order_details table and the order_details table with the products table.
+-- By combining these joins, we retrieve a comprehensive list of customers, along with their orders and the products included in each order.
+
+-- Conclusion:
+-- Mixed joins are powerful tools for retrieving data from multiple tables based on various relationships. 
+-- They allow you to handle complex queries, ensure comprehensive data analysis, and maintain data integrity by combining different join types within a single query.
+
+-- Example 1: Inner Join and Left Join
+-- Retrieve all customers with their orders and payments (if any).
+-- It includes all orders even if there are no matching payments.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Inner join with orders table on customerNumber
+LEFT JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Left join with payments table on customerNumber
+
+-- Example 2: Inner Join and Right Join
+-- Retrieve all orders with their customers and products (if any).
+-- It includes all products even if there are no matching orders.
+SELECT orders.orderNumber, customers.customerName, products.productName
+-- Select the order number, customer name, and product name
+FROM orders
+-- From the orders table
+INNER JOIN customers ON orders.customerNumber = customers.customerNumber
+-- Inner join with customers table on customerNumber
+RIGHT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Right join with orderdetails table on orderNumber
+INNER JOIN products ON orderdetails.productCode = products.productCode;
+-- Inner join with products table on productCode
+
+-- Example 3: Inner Join, Left Join, and Full Join
+-- Retrieve all products with their order details (if any) and customer information.
+-- It includes all products even if there are no order details, and all customer information.
+SELECT products.productName, orderdetails.orderNumber, customers.customerName
+-- Select the product name, order number, and customer name
+FROM products
+-- From the products table
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Inner join with orderdetails table on productCode
+LEFT JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Left join with orders table on orderNumber
+FULL OUTER JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Full join with customers table on customerNumber
+
+-- Example 4: Left Join and Right Join
+-- Retrieve all employees with their office details and customers they manage (if any).
+-- It includes all employees even if there are no office details, and all customers even if there are no matching employees.
+SELECT employees.firstName, employees.lastName, offices.city, customers.customerName
+-- Select the employee first name, last name, office city, and customer name
+FROM employees
+-- From the employees table
+LEFT JOIN offices ON employees.officeCode = offices.officeCode
+-- Left join with offices table on officeCode
+RIGHT JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber;
+-- Right join with customers table on salesRepEmployeeNumber
+
+-- Example 5: Inner Join and Full Join
+-- Retrieve all orders with their products and payments (if any).
+-- It includes all orders and all payments even if there are no matching records.
+SELECT orders.orderNumber, products.productName, payments.amount
+-- Select the order number, product name, and payment amount
+FROM orders
+-- From the orders table
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Inner join with orderdetails table on orderNumber
+INNER JOIN products ON orderdetails.productCode = products.productCode
+-- Inner join with products table on productCode
+FULL OUTER JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 6: Left Join and Full Join
+-- Retrieve all products with their order details and customer information (if any).
+-- It includes all products and all customers even if there are no matching records.
+SELECT products.productName, orderdetails.orderNumber, customers.customerName
+-- Select the product name, order number, and customer name
+FROM products
+-- From the products table
+LEFT JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Left join with orderdetails table on productCode
+FULL OUTER JOIN customers ON orderdetails.customerNumber = customers.customerNumber;
+-- Full join with customers table on customerNumber
+
+-- Example 7: Inner Join and Left Join
+-- Retrieve all employees with their office details and the orders they have managed (if any).
+-- It includes all employees even if there are no matching orders.
+SELECT employees.firstName, employees.lastName, offices.city, orders.orderNumber
+-- Select the employee first name, last name, office city, and order number
+FROM employees
+-- From the employees table
+INNER JOIN offices ON employees.officeCode = offices.officeCode
+-- Inner join with offices table on officeCode
+LEFT JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber
+-- Left join with customers table on salesRepEmployeeNumber
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber;
+-- Left join with orders table on customerNumber
+
+-- Example 8: Right Join and Full Join
+-- Retrieve all customers with their orders and payments (if any).
+-- It includes all customers and all payments even if there are no matching records.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+RIGHT JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Right join with orders table on customerNumber
+FULL OUTER JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 9: Inner Join and Right Join
+-- Retrieve all orders with their products and customer information (if any).
+-- It includes all orders and all customers even if there are no matching records.
+SELECT orders.orderNumber, products.productName, customers.customerName
+-- Select the order number, product name, and customer name
+FROM orders
+-- From the orders table
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Inner join with orderdetails table on orderNumber
+INNER JOIN products ON orderdetails.productCode = products.productCode
+-- Inner join with products table on productCode
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Right join with customers table on customerNumber
+
+-- Example 10: Left Join and Full Join
+-- Retrieve all employees with their office details and the payments they have processed (if any).
+-- It includes all employees and all payments even if there are no matching records.
+SELECT employees.firstName, employees.lastName, offices.city, payments.amount
+-- Select the employee first name, last name, office city, and payment amount
+FROM employees
+-- From the employees table
+LEFT JOIN offices ON employees.officeCode = offices.officeCode
+-- Left join with offices table on officeCode
+FULL OUTER JOIN payments ON employees.employeeNumber = payments.processedByEmployeeNumber;
+-- Full join with payments table on processedByEmployeeNumber
+
+-- Example 11: Inner Join, Left Join, and Right Join
+-- Retrieve all products with their order details and customer information (if any).
+-- It includes all products, all customers, and all orders even if there are no matching records.
+SELECT products.productName, orderdetails.orderNumber, customers.customerName
+-- Select the product name, order number, and customer name
+FROM products
+-- From the products table
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Inner join with orderdetails table on productCode
+LEFT JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Left join with orders table on orderNumber
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Right join with customers table on customerNumber
+
+-- Example 12: Inner Join and Full Join
+-- Retrieve all customers with their orders and the payments they have made (if any).
+-- It includes all customers, all orders, and all payments even if there are no matching records.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Inner join with orders table on customerNumber
+FULL OUTER JOIN payments ON customers.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 13: Left Join and Right Join
+-- Retrieve all orders with their product details and the employees who processed them (if any).
+-- It includes all orders, all products, and all employees even if there are no matching records.
+SELECT orders.orderNumber, products.productName, employees.firstName, employees.lastName
+-- Select the order number, product name, employee first name, and employee last name
+FROM orders
+-- From the orders table
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join with orderdetails table on orderNumber
+RIGHT JOIN employees ON orders.customerNumber = employees.employeeNumber;
+-- Right join with employees table on customerNumber
+
+-- Example 14: Inner Join, Left Join, and Full Join
+-- Retrieve all customers with their orders and payments (if any).
+-- It includes all customers, all orders, and all payments even if there are no matching records.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Inner join with orders table on customerNumber
+LEFT JOIN payments ON orders.customerNumber = payments.customerNumber
+-- Left join with payments table on customerNumber
+FULL OUTER JOIN products ON orders.productCode = products.productCode;
+-- Full join with products table on productCode
+
+-- Example 15: Left Join and Inner Join
+-- Retrieve all employees with their office details and the customers they manage (if any).
+-- It includes all employees and all customers even if there are no matching records.
+SELECT employees.firstName, employees.lastName, offices.city, customers.customerName
+-- Select the employee first name, last name, office city, and customer name
+FROM employees
+-- From the employees table
+LEFT JOIN offices ON employees.officeCode = offices.officeCode
+-- Left join with offices table on officeCode
+INNER JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber;
+-- Inner join with customers table on salesRepEmployeeNumber
+
+-- Example 16: Right Join and Full Join
+-- Retrieve all orders with their product details and the payments they have received (if any).
+-- It includes all orders, all products, and all payments even if there are no matching records.
+SELECT orders.orderNumber, products.productName, payments.amount
+-- Select the order number, product name, and payment amount
+FROM orders
+-- From the orders table
+RIGHT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Right join with orderdetails table on orderNumber
+FULL OUTER JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 17: Inner Join, Left Join, and Right Join
+-- Retrieve all products with their order details and customer information (if any).
+-- It includes all products, all customers, and all orders even if there are no matching records.
+SELECT products.productName, orderdetails.orderNumber, customers.customerName
+-- Select the product name, order number, and customer name
+FROM products
+-- From the products table
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Inner join with orderdetails table on productCode
+LEFT JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Left join with orders table on orderNumber
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Right join with customers table on customerNumber
+
+-- Example 18: Left Join and Full Join
+-- Retrieve all employees with their office details and the orders they have managed (if any).
+-- It includes all employees and all orders even if there are no matching records.
+SELECT employees.firstName, employees.lastName, offices.city, orders.orderNumber
+-- Select the employee first name, last name, office city, and order number
+FROM employees
+-- From the employees table
+LEFT JOIN offices ON employees.officeCode = offices.officeCode
+-- Left join with offices table on officeCode
+FULL OUTER JOIN orders ON employees.employeeNumber = orders.salesRepEmployeeNumber;
+-- Full join with orders table on salesRepEmployeeNumber
+
+-- Example 19: Inner Join and Left Join
+-- Retrieve all customers with their orders and payments (if any).
+-- It includes all orders even if there are no matching payments.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Inner join with orders table on customerNumber
+LEFT JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Left join with payments table on customerNumber
+
+-- Example 20: Right Join and Full Join
+-- Retrieve all orders with their customers and products (if any).
+-- It includes all products even if there are no matching orders.
+SELECT orders.orderNumber, customers.customerName, products.productName
+-- Select the order number, customer name, and product name
+FROM orders
+-- From the orders table
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber
+-- Right join with customers table on customerNumber
+FULL OUTER JOIN products ON orders.productCode = products.productCode;
+-- Full join with products table on productCode
+
+-- Example 21: Inner Join, Left Join, and Full Join
+-- Retrieve all products with their order details (if any) and customer information.
+-- It includes all products even if there are no order details, and all customer information.
+SELECT products.productName, orderdetails.orderNumber, customers.customerName
+-- Select the product name, order number, and customer name
+FROM products
+-- From the products table
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Inner join with orderdetails table on productCode
+LEFT JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Left join with orders table on orderNumber
+FULL OUTER JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Full join with customers table on customerNumber
+
+-- Example 22: Inner Join and Full Join
+-- Retrieve all orders with their products and payments (if any).
+-- It includes all orders and all payments even if there are no matching records.
+SELECT orders.orderNumber, products.productName, payments.amount
+-- Select the order number, product name, and payment amount
+FROM orders
+-- From the orders table
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Inner join with orderdetails table on orderNumber
+INNER JOIN products ON orderdetails.productCode = products.productCode
+-- Inner join with products table on productCode
+FULL OUTER JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 23: Left Join and Full Join
+-- Retrieve all products with their order details and customer information (if any).
+-- It includes all products and all customers even if there are no matching records.
+SELECT products.productName, orderdetails.orderNumber, customers.customerName
+-- Select the product name, order number, and customer name
+FROM products
+-- From the products table
+LEFT JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Left join with orderdetails table on productCode
+FULL OUTER JOIN customers ON orderdetails.customerNumber = customers.customerNumber;
+-- Full join with customers table on customerNumber
+
+-- Example 24: Inner Join and Left Join
+-- Retrieve all employees with their office details and the orders they have managed (if any).
+-- It includes all employees even if there are no matching orders.
+SELECT employees.firstName, employees.lastName, offices.city, orders.orderNumber
+-- Select the employee first name, last name, office city, and order number
+FROM employees
+-- From the employees table
+INNER JOIN offices ON employees.officeCode = offices.officeCode
+-- Inner join with offices table on officeCode
+LEFT JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber
+-- Left join with customers table on salesRepEmployeeNumber
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber;
+-- Left join with orders table on customerNumber
+
+-- Example 25: Right Join and Full Join
+-- Retrieve all customers with their orders and payments (if any).
+-- It includes all customers and all payments even if there are no matching records.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+RIGHT JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Right join with orders table on customerNumber
+FULL OUTER JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 26: Inner Join and Right Join
+-- Retrieve all orders with their products and customer information (if any).
+-- It includes all orders and all customers even if there are no matching records.
+SELECT orders.orderNumber, products.productName, customers.customerName
+-- Select the order number, product name, and customer name
+FROM orders
+-- From the orders table
+INNER JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Inner join with orderdetails table on orderNumber
+INNER JOIN products ON orderdetails.productCode = products.productCode
+-- Inner join with products table on productCode
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Right join with customers table on customerNumber
+
+-- Example 27: Left Join and Full Join
+-- Retrieve all employees with their office details and the payments they have processed (if any).
+-- It includes all employees and all payments even if there are no matching records.
+SELECT employees.firstName, employees.lastName, offices.city, payments.amount
+-- Select the employee first name, last name, office city, and payment amount
+FROM employees
+-- From the employees table
+LEFT JOIN offices ON employees.officeCode = offices.officeCode
+-- Left join with offices table on officeCode
+FULL OUTER JOIN payments ON employees.employeeNumber = payments.processedByEmployeeNumber;
+-- Full join with payments table on processedByEmployeeNumber
+
+-- Example 28: Inner Join, Left Join, and Right Join
+-- Retrieve all products with their order details and customer information (if any).
+-- It includes all products, all customers, and all orders even if there are no matching records.
+SELECT products.productName, orderdetails.orderNumber, customers.customerName
+-- Select the product name, order number, and customer name
+FROM products
+-- From the products table
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Inner join with orderdetails table on productCode
+LEFT JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Left join with orders table on orderNumber
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Right join with customers table on customerNumber
+
+-- Example 29: Inner Join and Full Join
+-- Retrieve all customers with their orders and the payments they have made (if any).
+-- It includes all customers, all orders, and all payments even if there are no matching records.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Inner join with orders table on customerNumber
+FULL OUTER JOIN payments ON customers.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 30: Left Join and Right Join
+-- Retrieve all orders with their product details and the employees who processed them (if any).
+-- It includes all orders, all products, and all employees even if there are no matching records.
+SELECT orders.orderNumber, products.productName, employees.firstName, employees.lastName
+-- Select the order number, product name, employee first name, and employee last name
+FROM orders
+-- From the orders table
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join with orderdetails table on orderNumber
+RIGHT JOIN employees ON orders.customerNumber = employees.employeeNumber;
+-- Right join with employees table on customerNumber
+
+-- Example 31: Inner Join, Left Join, and Full Join
+-- Retrieve all customers with their orders and payments (if any).
+-- It includes all customers, all orders, and all payments even if there are no matching records.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Inner join with orders table on customerNumber
+LEFT JOIN payments ON orders.customerNumber = payments.customerNumber
+-- Left join with payments table on customerNumber
+FULL OUTER JOIN products ON orders.productCode = products.productCode;
+-- Full join with products table on productCode
+
+-- Example 32: Inner Join and Left Join
+-- Retrieve all employees with their office details and the customers they manage (if any).
+-- It includes all employees and all customers even if there are no matching records.
+SELECT employees.firstName, employees.lastName, offices.city, customers.customerName
+-- Select the employee first name, last name, office city, and customer name
+FROM employees
+-- From the employees table
+LEFT JOIN offices ON employees.officeCode = offices.officeCode
+-- Left join with offices table on officeCode
+INNER JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber;
+-- Inner join with customers table on salesRepEmployeeNumber
+
+-- Example 33: Right Join and Full Join
+-- Retrieve all orders with their product details and the payments they have received (if any).
+-- It includes all orders, all products, and all payments even if there are no matching records.
+SELECT orders.orderNumber, products.productName, payments.amount
+-- Select the order number, product name, and payment amount
+FROM orders
+-- From the orders table
+RIGHT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Right join with orderdetails table on orderNumber
+FULL OUTER JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 34: Inner Join, Left Join, and Right Join
+-- Retrieve all products with their order details and customer information (if any).
+-- It includes all products, all customers, and all orders even if there are no matching records.
+SELECT products.productName, orderdetails.orderNumber, customers.customerName
+-- Select the product name, order number, and customer name
+FROM products
+-- From the products table
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Inner join with orderdetails table on productCode
+LEFT JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Left join with orders table on orderNumber
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Right join with customers table on customerNumber
+
+-- Example 35: Inner Join and Full Join
+-- Retrieve all customers with their orders and the payments they have made (if any).
+-- It includes all customers, all orders, and all payments even if there are no matching records.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Inner join with orders table on customerNumber
+FULL OUTER JOIN payments ON customers.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 36: Left Join and Right Join
+-- Retrieve all orders with their product details and the employees who processed them (if any).
+-- It includes all orders, all products, and all employees even if there are no matching records.
+SELECT orders.orderNumber, products.productName, employees.firstName, employees.lastName
+-- Select the order number, product name, employee first name, and employee last name
+FROM orders
+-- From the orders table
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join with orderdetails table on orderNumber
+RIGHT JOIN employees ON orders.customerNumber = employees.employeeNumber;
+-- Right join with employees table on customerNumber
+
+-- Example 37: Inner Join, Left Join, and Full Join
+-- Retrieve all customers with their orders and payments (if any).
+-- It includes all customers, all orders, and all payments even if there are no matching records.
+SELECT customers.customerName, orders.orderNumber, payments.amount
+-- Select the customer name, order number, and payment amount
+FROM customers
+-- From the customers table
+INNER JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Inner join with orders table on customerNumber
+LEFT JOIN payments ON orders.customerNumber = payments.customerNumber
+-- Left join with payments table on customerNumber
+FULL OUTER JOIN products ON orders.productCode = products.productCode;
+-- Full join with products table on productCode
+
+-- Example 38: Inner Join and Left Join
+-- Retrieve all employees with their office details and the customers they manage (if any).
+-- It includes all employees and all customers even if there are no matching records.
+SELECT employees.firstName, employees.lastName, offices.city, customers.customerName
+-- Select the employee first name, last name, office city, and customer name
+FROM employees
+-- From the employees table
+LEFT JOIN offices ON employees.officeCode = offices.officeCode
+-- Left join with offices table on officeCode
+INNER JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber;
+-- Inner join with customers table on salesRepEmployeeNumber
+
+-- Example 39: Right Join and Full Join
+-- Retrieve all orders with their product details and the payments they have received (if any).
+-- It includes all orders, all products, and all payments even if there are no matching records.
+SELECT orders.orderNumber, products.productName, payments.amount
+-- Select the order number, product name, and payment amount
+FROM orders
+-- From the orders table
+RIGHT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Right join with orderdetails table on orderNumber
+FULL OUTER JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Full join with payments table on customerNumber
+
+-- Example 40: Inner Join, Left Join, and Right Join
+-- Retrieve all products with their order details and customer information (if any).
+-- It includes all products, all customers, and all orders even if there are no matching records.
+SELECT products.productName, orderdetails.orderNumber, customers.customerName
+-- Select the product name, order number, and customer name
+FROM products
+-- From the products table
+INNER JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Inner join with orderdetails table on productCode
+LEFT JOIN orders ON orderdetails.orderNumber = orders.orderNumber
+-- Left join with orders table on orderNumber
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Right join with customers table on customerNumber
+

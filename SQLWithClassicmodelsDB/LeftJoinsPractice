@@ -1,0 +1,279 @@
+-- Problem 1: List all customers and their orders (if any)
+SELECT customers.customerName, orders.orderNumber, orders.orderDate
+-- Select customer name, order number, and order date
+FROM customers
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber;
+-- Left join customers with orders where customer numbers match
+-- This query retrieves all customers along with their orders. If a customer has no orders, the order details will be NULL.
+
+-- Problem 2: List all employees and their offices (if any)
+SELECT employees.firstName, employees.lastName, offices.city, offices.country
+-- Select employee first name, last name, office city, and country
+FROM employees
+LEFT JOIN offices ON employees.officeCode = offices.officeCode;
+-- Left join employees with offices where office codes match
+-- This query retrieves all employees along with their office details. If an employee is not assigned to any office, the office details will be NULL.
+
+-- Problem 3: List all products and their order details (if any)
+SELECT products.productName, orderdetails.orderNumber, orderdetails.quantityOrdered
+-- Select product name, order number, and quantity ordered
+FROM products
+LEFT JOIN orderdetails ON products.productCode = orderdetails.productCode;
+-- Left join products with order details where product codes match
+-- This query retrieves all products along with their order details. If a product has no orders, the order details will be NULL.
+
+-- Problem 4: List all customers and their payments (if any)
+SELECT customers.customerName, payments.amount, payments.paymentDate
+-- Select customer name, payment amount, and payment date
+FROM customers
+LEFT JOIN payments ON customers.customerNumber = payments.customerNumber;
+-- Left join customers with payments where customer numbers match
+-- This query retrieves all customers along with their payment details. If a customer has made no payments, the payment details will be NULL.
+
+-- Problem 5: List all orders and their products (if any)
+SELECT orders.orderNumber, products.productName
+-- Select order number and product name
+FROM orders
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join orders with order details where order numbers match
+LEFT JOIN products ON orderdetails.productCode = products.productCode;
+-- Left join order details with products where product codes match
+-- This query retrieves all orders along with their product details. If an order has no products, the product details will be NULL.
+
+-- Problem 6: List all offices and their employees (if any)
+SELECT offices.city, employees.firstName, employees.lastName
+-- Select office city, employee first name, and last name
+FROM offices
+LEFT JOIN employees ON offices.officeCode = employees.officeCode;
+-- Left join offices with employees where office codes match
+-- This query retrieves all offices along with their employee details. If an office has no employees, the employee details will be NULL.
+
+-- Problem 7: List all products and their vendors (if any)
+SELECT products.productName, vendors.vendorName
+-- Select product name and vendor name
+FROM products
+LEFT JOIN vendors ON products.productVendor = vendors.vendorName;
+-- Left join products with vendors where product vendor names match
+-- This query retrieves all products along with their vendor details. If a product has no vendor, the vendor details will be NULL.
+
+-- Problem 8: List all customers and their sales representatives (if any)
+SELECT customers.customerName, employees.firstName, employees.lastName
+-- Select customer name, sales representative first name, and last name
+FROM customers
+LEFT JOIN employees ON customers.salesRepEmployeeNumber = employees.employeeNumber;
+-- Left join customers with employees where sales representative employee numbers match
+-- This query retrieves all customers along with their sales representative details. If a customer has no sales representative, the sales representative details will be NULL.
+
+-- Problem 9: List all orders and the payments received for them (if any)
+SELECT orders.orderNumber, payments.amount
+-- Select order number and payment amount
+FROM orders
+LEFT JOIN payments ON orders.customerNumber = payments.customerNumber;
+-- Left join orders with payments where customer numbers match
+-- This query retrieves all orders along with their payment details. If an order has no payments, the payment details will be NULL.
+
+-- Problem 10: List all employees and the orders they managed (if any)
+SELECT employees.firstName, employees.lastName, orders.orderNumber
+-- Select employee first name, last name, and order number
+FROM employees
+LEFT JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber
+-- Left join employees with customers where employee numbers match sales representative employee numbers
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber;
+-- Left join customers with orders where customer numbers match
+-- This query retrieves all employees along with the orders they managed. If an employee managed no orders, the order details will be NULL.
+
+-- Problem 11: List all product lines and their products (if any)
+SELECT productlines.productLine, products.productName
+-- Select product line and product name
+FROM productlines
+LEFT JOIN products ON productlines.productLine = products.productLine;
+-- Left join product lines with products where product lines match
+-- This query retrieves all product lines along with their product details. If a product line has no products, the product details will be NULL.
+
+-- Problem 12: List all orders and their shipping details (if any)
+SELECT orders.orderNumber, orders.shippedDate
+-- Select order number and shipped date
+FROM orders
+LEFT JOIN shippingdetails ON orders.orderNumber = shippingdetails.orderNumber;
+-- Left join orders with shipping details where order numbers match
+-- This query retrieves all orders along with their shipping details. If an order has no shipping details, the shipping details will be NULL.
+
+-- Problem 13: List all customers and the employees who manage them (if any)
+SELECT customers.customerName, employees.firstName, employees.lastName
+-- Select customer name, employee first name, and last name
+FROM customers
+LEFT JOIN employees ON customers.salesRepEmployeeNumber = employees.employeeNumber;
+-- Left join customers with employees where sales representative employee numbers match
+-- This query retrieves all customers along with the employees who manage them. If a customer has no assigned employee, the employee details will be NULL.
+
+-- Problem 14: List all orders and the customers who placed them (if any)
+SELECT orders.orderNumber, customers.customerName
+-- Select order number and customer name
+FROM orders
+LEFT JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Left join orders with customers where customer numbers match
+-- This query retrieves all orders along with the customers who placed them. If an order has no customer, the customer details will be NULL.
+
+-- Problem 15: List all employees and their job titles (if any)
+SELECT employees.firstName, employees.lastName, jobtitles.title
+-- Select employee first name, last name, and job title
+FROM employees
+LEFT JOIN jobtitles ON employees.jobTitle = jobtitles.title;
+-- Left join employees with job titles where job titles match
+-- This query retrieves all employees along with their job titles. If an employee has no job title, the job title details will be NULL.
+
+-- Problem 16: List all orders and the products ordered (if any)
+SELECT orders.orderNumber, products.productName
+-- Select order number and product name
+FROM orders
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join orders with order details where order numbers match
+LEFT JOIN products ON orderdetails.productCode = products.productCode;
+-- Left join order details with products where product codes match
+-- This query retrieves all orders along with the products ordered. If an order has no products, the product details will be NULL.
+
+-- Problem 17: List all customers and their contact information (if any)
+SELECT customers.customerName, contactdetails.contactPhone, contactdetails.contactEmail
+-- Select customer name, contact phone, and contact email
+FROM customers
+LEFT JOIN contactdetails ON customers.customerNumber = contactdetails.customerNumber;
+-- Left join customers with contact details where customer numbers match
+-- This query retrieves all customers along with their contact information. If a customer has no contact details, the contact details will be NULL.
+
+-- Problem 18: List all employees and the departments they work in (if any)
+SELECT employees.firstName, employees.lastName, departments.departmentName
+-- Select employee first name, last name, and department name
+FROM employees
+LEFT JOIN departments ON employees.departmentNumber = departments.departmentNumber;
+-- Left join employees with departments where department numbers match
+-- This query retrieves all employees along with the departments they work in. If an employee has no department, the department details will be NULL.
+
+-- Problem 19: List all customers and their orders with total amounts (if any)
+SELECT customers.customerName, orders.orderNumber, SUM(orderdetails.quantityOrdered * orderdetails.priceEach) AS totalAmount
+-- Select customer name, order number, and calculate total amount for each order
+FROM customers
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Left join customers with orders where customer numbers match
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join orders with order details where order numbers match
+GROUP BY customers.customerName, orders.orderNumber;
+-- Group results by customer name and order number to calculate total amount for each order
+-- This query retrieves all customers along with their orders and the total amount for each order. If a customer has no orders, the order details and total amount will be NULL.
+
+-- Problem 20: List all employees and the payments they have processed (if any)
+SELECT employees.firstName, employees.lastName, payments.amount
+-- Select employee first name, last name, and payment amount
+FROM employees
+LEFT JOIN payments ON employees.employeeNumber = payments.processedByEmployeeNumber;
+-- Left join employees with payments where employee numbers match processed by employee numbers
+-- This query retrieves all employees along with the payments they have processed. If an employee has processed no payments, the payment details will be NULL.
+
+-- Problem 21: List all customers and the number of orders they have placed
+SELECT customers.customerName, COUNT(orders.orderNumber) AS orderCount
+-- Select customer name and count the number of orders placed
+FROM customers
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Left join customers with orders where customer numbers match
+GROUP BY customers.customerName;
+-- Group results by customer name to count the number of orders for each customer
+-- This query retrieves all customers along with the number of orders they have placed. If a customer has placed no orders, the order count will be zero.
+
+-- Problem 22: List all products and the total quantity ordered for each product
+SELECT products.productName, SUM(orderdetails.quantityOrdered) AS totalQuantity
+-- Select product name and calculate total quantity ordered for each product
+FROM products
+LEFT JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Left join products with order details where product codes match
+GROUP BY products.productName;
+-- Group results by product name to calculate total quantity ordered for each product
+-- This query retrieves all products along with the total quantity ordered for each product. If a product has no orders, the total quantity will be zero.
+
+-- Problem 23: List all employees and the number of customers they manage
+SELECT employees.firstName, employees.lastName, COUNT(customers.customerNumber) AS customerCount
+-- Select employee first name, last name, and count the number of customers managed
+FROM employees
+LEFT JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber
+-- Left join employees with customers where employee numbers match sales representative employee numbers
+GROUP BY employees.firstName, employees.lastName;
+-- Group results by employee first name and last name to count the number of customers managed by each employee
+-- This query retrieves all employees along with the number of customers they manage. If an employee manages no customers, the customer count will be zero.
+
+-- Problem 24: List all orders and the average quantity ordered for each order
+SELECT orders.orderNumber, AVG(orderdetails.quantityOrdered) AS avgQuantity
+-- Select order number and calculate average quantity ordered for each order
+FROM orders
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join orders with order details where order numbers match
+GROUP BY orders.orderNumber;
+-- Group results by order number to calculate average quantity ordered for each order
+-- This query retrieves all orders along with the average quantity ordered for each order. If an order has no products, the average quantity will be NULL.
+
+-- Problem 25: List all product lines and the number of products in each line
+SELECT productlines.productLine, COUNT(products.productCode) AS productCount
+-- Select product line and count the number of products in each line
+FROM productlines
+LEFT JOIN products ON productlines.productLine = products.productLine
+-- Left join product lines with products where product lines match
+GROUP BY productlines.productLine;
+-- Group results by product line to count the number of products in each line
+-- This query retrieves all product lines along with the number of products in each line. If a product line has no products, the product count will be zero.
+
+-- Problem 26: List all customers and the total amount they have spent
+SELECT customers.customerName, SUM(orderdetails.quantityOrdered * orderdetails.priceEach) AS totalSpent
+-- Select customer name and calculate total amount spent by each customer
+FROM customers
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Left join customers with orders where customer numbers match
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join orders with order details where order numbers match
+GROUP BY customers.customerName;
+-- Group results by customer name to calculate total amount spent by each customer
+-- This query retrieves all customers along with the total amount they have spent. If a customer has made no orders, the total spent will be zero.
+
+-- Problem 27: List all employees and the number of orders they have handled
+SELECT employees.firstName, employees.lastName, COUNT(orders.orderNumber) AS orderCount
+-- Select employee first name, last name, and count the number of orders handled
+FROM employees
+LEFT JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber
+-- Left join employees with customers where employee numbers match sales representative employee numbers
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Left join customers with orders where customer numbers match
+GROUP BY employees.firstName, employees.lastName;
+-- Group results by employee first name and last name to count the number of orders handled by each employee
+-- This query retrieves all employees along with the number of orders they have handled. If an employee has handled no orders, the order count will be zero.
+
+-- Problem 28: List all products and their total sales
+SELECT products.productName, SUM(orderdetails.quantityOrdered * orderdetails.priceEach) AS totalSales
+-- Select product name and calculate total sales for each product
+FROM products
+LEFT JOIN orderdetails ON products.productCode = orderdetails.productCode
+-- Left join products with order details where product codes match
+GROUP BY products.productName;
+-- Group results by product name to calculate total sales for each product
+-- This query retrieves all products along with their total sales. If a product has no orders, the total sales will be zero.
+
+-- Problem 29: List all customers and their average order value
+SELECT customers.customerName, AVG(orderdetails.quantityOrdered * orderdetails.priceEach) AS avgOrderValue
+-- Select customer name and calculate average order value for each customer
+FROM customers
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Left join customers with orders where customer numbers match
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join orders with order details where order numbers match
+GROUP BY customers.customerName;
+-- Group results by customer name to calculate average order value for each customer
+-- This query retrieves all customers along with their average order value. If a customer has made no orders, the average order value will be NULL.
+
+-- Problem 30: List all employees and the average amount of orders they have handled
+SELECT employees.firstName, employees.lastName, AVG(orderdetails.quantityOrdered * orderdetails.priceEach) AS avgOrderAmount
+-- Select employee first name, last name, and calculate average amount of orders handled by each employee
+FROM employees
+LEFT JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber
+-- Left join employees with customers where employee numbers match sales representative employee numbers
+LEFT JOIN orders ON customers.customerNumber = orders.customerNumber
+-- Left join customers with orders where customer numbers match
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join orders with order details where order numbers match
+GROUP BY employees.firstName, employees.lastName;
+-- Group results by employee first name and last name to calculate average order amount handled by each employee
+-- This query retrieves all employees along with the average amount of orders they have handled. If an employee has handled no orders, the average order amount will be NULL.

@@ -1,0 +1,225 @@
+-- SQL Right Join Guide
+
+-- Introduction to Right Joins:
+-- Right Join is a type of join in SQL that returns all records from the right table (table2) and the matched records from the left table (table1). If there is no match, NULL values are returned for columns from the left table.
+
+-- When to Use Right Joins:
+
+-- 1. When you need to include all records from the right table, regardless of whether there is a matching record in the left table.
+-- 2. When you want to find records in the right table that do not have a corresponding match in the left table.
+
+-- Additional Information:
+
+-- 1. Preserve All Records from Right Table:
+-- Use a right join when you need to retrieve all records from the right table and only the matching records from the left table.
+
+-- 2. Find Missing Matches:
+-- Right joins are useful for identifying records in the right table that do not have corresponding records in the left table.
+
+-- 3. Default Values:
+-- Right joins can be used to ensure that certain default values from the right table are always included, regardless of the presence of related records in the left table.
+
+-- Syntax:
+-- SELECT columns
+-- FROM table1
+-- RIGHT JOIN table2
+-- ON table1.column = table2.column;
+
+-- How to Identify When to Use Right Joins:
+
+-- 1. Preserve All Records from Right Table:
+-- Use a right join when you need to retrieve all records from the right table and only the matching records from the left table.
+
+-- 2. Find Missing Matches:
+-- Useful for identifying records in the right table that do not have corresponding records in the left table.
+
+-- Examples of Right Joins with Explanations:
+
+-- Syntax
+SELECT columns
+FROM table1
+RIGHT JOIN table2
+ON table1.column = table2.column;
+
+-- Example 1: List all orders and their customers (if any)
+SELECT customers.customerName, orders.orderNumber, orders.orderDate
+FROM customers
+RIGHT JOIN orders ON customers.customerNumber = orders.customerNumber;
+
+-- Description:
+-- This SQL query retrieves a list of all orders and their corresponding customers (if any). It achieves this by performing a right join between the customers table (left table) and the orders table (right table) based on the customerNumber column, which serves as the common key between the two tables.
+-- The RIGHT JOIN keyword ensures that all records from the orders table are included in the result set, regardless of whether there is a matching record in the customers table. This means that even orders without corresponding customers will still appear in the output.
+-- When an order has no corresponding customer, NULL values are returned for the customer-related columns from the customers table. This indicates that the customer information is missing for that particular order.
+
+-- Conclusion:
+-- Right joins are valuable tools for combining data from two or more tables while ensuring that all records from the right table are included in the result set. They are useful for scenarios where you need to include all records from the right table and supplement them with additional information from the related table, if available.
+
+-- Example 1: List all orders and their customers (if any)
+SELECT customers.customerName, orders.orderNumber, orders.orderDate
+-- Select customer name, order number, and order date
+FROM customers
+RIGHT JOIN orders ON customers.customerNumber = orders.customerNumber;
+-- Right join customers with orders where customer numbers match
+-- This query retrieves all orders along with their customer details. If an order has no customer, the customer details will be NULL.
+
+-- Example 2: List all offices and their employees (if any)
+SELECT employees.firstName, employees.lastName, offices.city, offices.country
+-- Select employee first name, last name, office city, and country
+FROM employees
+RIGHT JOIN offices ON employees.officeCode = offices.officeCode;
+-- Right join employees with offices where office codes match
+-- This query retrieves all offices along with their employee details. If an office has no employees, the employee details will be NULL.
+
+-- Example 3: List all products and their order details (if any)
+SELECT products.productName, orderdetails.orderNumber, orderdetails.quantityOrdered
+-- Select product name, order number, and quantity ordered
+FROM products
+RIGHT JOIN orderdetails ON products.productCode = orderdetails.productCode;
+-- Right join products with order details where product codes match
+-- This query retrieves all order details along with their product details. If an order detail has no product, the product details will be NULL.
+
+-- Example 4: List all payments and their customers (if any)
+SELECT customers.customerName, payments.amount, payments.paymentDate
+-- Select customer name, payment amount, and payment date
+FROM customers
+RIGHT JOIN payments ON customers.customerNumber = payments.customerNumber;
+-- Right join customers with payments where customer numbers match
+-- This query retrieves all payments along with their customer details. If a payment has no customer, the customer details will be NULL.
+
+-- Example 5: List all products and their orders (if any)
+SELECT orders.orderNumber, products.productName
+-- Select order number and product name
+FROM orders
+RIGHT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Right join orders with order details where order numbers match
+RIGHT JOIN products ON orderdetails.productCode = products.productCode;
+-- Right join order details with products where product codes match
+-- This query retrieves all products along with their order details. If a product has no orders, the order details will be NULL.
+
+-- Example 6: List all offices and their employees (if any)
+SELECT offices.city, employees.firstName, employees.lastName
+-- Select office city, employee first name, and last name
+FROM employees
+RIGHT JOIN offices ON employees.officeCode = offices.officeCode;
+-- Right join employees with offices where office codes match
+-- This query retrieves all offices along with their employee details. If an office has no employees, the employee details will be NULL.
+
+-- Example 7: List all vendors and their products (if any)
+SELECT vendors.vendorName, products.productName
+-- Select vendor name and product name
+FROM vendors
+RIGHT JOIN products ON vendors.vendorName = products.productVendor;
+-- Right join vendors with products where vendor names match
+-- This query retrieves all vendors along with their product details. If a vendor has no products, the product details will be NULL.
+
+-- Example 8: List all sales representatives and their customers (if any)
+SELECT employees.firstName, employees.lastName, customers.customerName
+-- Select employee first name, last name, and customer name
+FROM employees
+RIGHT JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber;
+-- Right join employees with customers where employee numbers match sales representative employee numbers
+-- This query retrieves all sales representatives along with their customer details. If a sales representative has no customers, the customer details will be NULL.
+
+-- Example 9: List all payments and the orders they are associated with (if any)
+SELECT orders.orderNumber, payments.amount
+-- Select order number and payment amount
+FROM payments
+RIGHT JOIN orders ON payments.customerNumber = orders.customerNumber;
+-- Right join payments with orders where customer numbers match
+-- This query retrieves all orders along with their payment details. If an order has no payments, the payment details will be NULL.
+
+-- Example 10: List all employees and the orders they managed (if any)
+SELECT employees.firstName, employees.lastName, orders.orderNumber
+-- Select employee first name, last name, and order number
+FROM orders
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber
+-- Right join orders with customers where customer numbers match
+RIGHT JOIN employees ON customers.salesRepEmployeeNumber = employees.employeeNumber;
+-- Right join customers with employees where employee numbers match sales representative employee numbers
+-- This query retrieves all orders along with the employees who managed them. If an order has no managing employee, the employee details will be NULL.
+
+-- Example 11: List all product lines and their products (if any)
+SELECT products.productName, productlines.productLine
+-- Select product name and product line
+FROM products
+RIGHT JOIN productlines ON products.productLine = productlines.productLine;
+-- Right join products with product lines where product lines match
+-- This query retrieves all product lines along with their product details. If a product line has no products, the product details will be NULL.
+
+-- Example 12: List all shipping details and their orders (if any)
+SELECT orders.orderNumber, shippingdetails.shippedDate
+-- Select order number and shipped date
+FROM shippingdetails
+RIGHT JOIN orders ON shippingdetails.orderNumber = orders.orderNumber;
+-- Right join shipping details with orders where order numbers match
+-- This query retrieves all shipping details along with their order details. If a shipping detail has no order, the order details will be NULL.
+
+-- Example 13: List all employees and the customers they manage (if any)
+SELECT customers.customerName, employees.firstName, employees.lastName
+-- Select customer name, employee first name, and last name
+FROM employees
+RIGHT JOIN customers ON employees.employeeNumber = customers.salesRepEmployeeNumber;
+-- Right join employees with customers where employee numbers match sales representative employee numbers
+-- This query retrieves all employees along with the customers they manage. If an employee manages no customers, the customer details will be NULL.
+
+-- Example 14: List all customers and the orders they placed (if any)
+SELECT customers.customerName, orders.orderNumber
+-- Select customer name and order number
+FROM orders
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber;
+-- Right join orders with customers where customer numbers match
+-- This query retrieves all customers along with the orders they placed. If a customer has placed no orders, the order details will be NULL.
+
+-- Example 15: List all job titles and their employees (if any)
+SELECT employees.firstName, employees.lastName, jobtitles.title
+-- Select employee first name, last name, and job title
+FROM employees
+RIGHT JOIN jobtitles ON employees.jobTitle = jobtitles.title;
+-- Right join employees with job titles where job titles match
+-- This query retrieves all job titles along with their employee details. If a job title has no employees, the employee details will be NULL.
+
+-- Example 16: List all products and their orders (if any)
+SELECT orders.orderNumber, products.productName
+-- Select order number and product name
+FROM orders
+RIGHT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Right join orders with order details where order numbers match
+RIGHT JOIN products ON orderdetails.productCode = products.productCode;
+-- Right join order details with products where product codes match
+-- This query retrieves all products along with their order details. If a product has no orders, the order details will be NULL.
+
+-- Example 17: List all contact information and their customers (if any)
+SELECT contactdetails.contactPhone, contactdetails.contactEmail, customers.customerName
+-- Select contact phone, contact email, and customer name
+FROM contactdetails
+RIGHT JOIN customers ON contactdetails.customerNumber = customers.customerNumber;
+-- Right join contact details with customers where customer numbers match
+-- This query retrieves all contact details along with their customer details. If a contact detail has no customer, the customer details will be NULL.
+
+-- Example 18: List all departments and their employees (if any)
+SELECT departments.departmentName, employees.firstName, employees.lastName
+-- Select department name, employee first name, and last name
+FROM employees
+RIGHT JOIN departments ON employees.departmentNumber = departments.departmentNumber;
+-- Right join employees with departments where department numbers match
+-- This query retrieves all departments along with their employee details. If a department has no employees, the employee details will be NULL.
+
+-- Example 19: List all customers and their orders with total amounts (if any)
+SELECT customers.customerName, orders.orderNumber, SUM(orderdetails.quantityOrdered * orderdetails.priceEach) AS totalAmount
+-- Select customer name, order number, and calculate total amount for each order
+FROM orders
+RIGHT JOIN customers ON orders.customerNumber = customers.customerNumber
+-- Right join orders with customers where customer numbers match
+LEFT JOIN orderdetails ON orders.orderNumber = orderdetails.orderNumber
+-- Left join orders with order details where order numbers match
+GROUP BY customers.customerName, orders.orderNumber;
+-- Group results by customer name and order number to calculate total amount for each order
+-- This query retrieves all customers along with their orders and the total amount for each order. If a customer has no orders, the order details and total amount will be NULL.
+
+-- Example 20: List all employees and the payments they have processed (if any)
+SELECT employees.firstName, employees.lastName, payments.amount
+-- Select employee first name, last name, and payment amount
+FROM payments
+RIGHT JOIN employees ON payments.processedByEmployeeNumber = employees.employeeNumber;
+-- Right join payments with employees where employee numbers match processed by employee numbers
+-- This query retrieves all payments along with the employees who processed them. If a payment has no processing employee, the employee details will be NULL.
