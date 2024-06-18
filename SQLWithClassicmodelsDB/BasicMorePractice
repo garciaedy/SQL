@@ -79,7 +79,7 @@ WHERE customerName LIKE 'A%';
 -- Retrieve customers whose names have 'Auto' in the middle
 SELECT * 
 -- Select all columns
-FROM customers 
+FROM customers
 -- From the customers table
 WHERE customerName LIKE '%Auto%';
 -- Where customerName contains 'Auto'

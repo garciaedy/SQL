@@ -1,3 +1,52 @@
+-- Simple Queries for Practice
+
+-- Show all tables in the database
+SHOW TABLES;
+
+-- Show the structure of a specific table (e.g., customers)
+DESCRIBE customers;
+
+-- Show the database currently in use
+SELECT DATABASE();
+
+-- Show the version of the database server
+SELECT VERSION();
+
+-- Count the total number of records in a table (e.g., customers)
+SELECT COUNT(*) FROM customers;
+
+-- Retrieve the maximum value of a column (e.g., orderNumber) from a table (e.g., orders)
+SELECT MAX(orderNumber) FROM orders;
+
+-- Retrieve the minimum value of a column (e.g., creditLimit) from a table (e.g., customers)
+SELECT MIN(creditLimit) FROM customers;
+
+-- Retrieve the sum of values in a column (e.g., amount) from a table (e.g., payments)
+SELECT SUM(amount) FROM payments;
+
+-- Retrieve the average value of a column (e.g., quantityOrdered) from a table (e.g., orderdetails)
+SELECT AVG(quantityOrdered) FROM orderdetails;
+
+-- Retrieve all columns from the customers table
+SELECT * FROM customers;
+
+-- Retrieve specific columns from the customers table
+SELECT customerName, city FROM customers;
+
+-- Retrieve all columns from the customers table for customers located in Paris
+SELECT * FROM customers WHERE city = 'Paris';
+
+-- Retrieve all columns from the customers table sorted by customerName in ascending order
+SELECT * FROM customers ORDER BY customerName ASC;
+
+-- Retrieve customers whose names start with 'A'
+SELECT * FROM customers WHERE customerName LIKE 'A%';
+
+-- Retrieve customers whose names contain 'Tech'
+SELECT * FROM customers WHERE customerName LIKE '%Tech%';
+
+
+
 -- Example 1: Select all columns from the customers table
 SELECT * FROM customers;
 
@@ -27,3 +76,32 @@ SELECT * FROM customers WHERE country = 'USA';
 
 -- Example 10: Select all columns from the employees table where jobTitle is 'Sales Rep'
 SELECT * FROM employees WHERE jobTitle = 'Sales Rep';
+
+
+-- Retrieve distinct values from a column (e.g., city) in a table (e.g., customers)
+SELECT DISTINCT city FROM customers;
+
+-- Retrieve a random sample of records from a table (e.g., orders)
+SELECT * FROM orders ORDER BY RAND() LIMIT 10;
+
+-- Calculate the total revenue by summing up the product of quantity ordered and price each from the order details
+SELECT SUM(quantityOrdered * priceEach) AS totalRevenue FROM orderdetails;
+
+-- Find the average credit limit of customers in each city
+SELECT city, AVG(creditLimit) AS averageCreditLimit FROM customers GROUP BY city;
+
+-- Retrieve the top N records from a table based on a specific criterion (e.g., top 5 customers with the highest credit limit)
+SELECT * FROM customers ORDER BY creditLimit DESC LIMIT 5;
+
+-- Retrieve records from a table based on multiple conditions using AND or OR operators
+SELECT * FROM orders WHERE orderDate BETWEEN '2023-01-01' AND '2023-12-31' AND status = 'Shipped';
+
+-- Retrieve records from a table based on a specific condition using the IN operator
+SELECT * FROM customers WHERE country IN ('USA', 'Canada', 'Mexico');
+
+-- Retrieve records from a table based on a specific condition using the NOT operator
+SELECT * FROM customers WHERE country NOT IN ('USA', 'Canada', 'Mexico');
+
+-- Calculate the difference between two dates
+SELECT DATEDIFF('2023-12-31', '2023-01-01') AS daysDifference;
+
